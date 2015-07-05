@@ -51,7 +51,7 @@ To run:
 freq_pi
 */
 
-#define PROGRAM_VERSION "0.7"
+#define PROGRAM_VERSION "0.71"
 
 
 /*
@@ -77,7 +77,10 @@ Put menu option in alphabetic order, fixed some things in menu.
 Added -q for exit with frequency off.
 
 0.7:
-Added ppm frequency correction -y command line flag. 
+Added ppm frequency correction -y command line flag.
+
+0.71
+Minor modification to add Raspberry Pi 2 base address support
 
 */
 

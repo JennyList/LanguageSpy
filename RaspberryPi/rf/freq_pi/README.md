@@ -6,7 +6,7 @@ programmable frequency generator on GPIO_4 pin 7
 
 
 ###To compile:###
-gcc -Wall -O4 -o freq_pi freq_pi-0.7.c -std=gnu99 -lm
+gcc -Wall -O4 -o freq_pi freq_pi.c -std=gnu99 -lm
 
 
 ###To install:###

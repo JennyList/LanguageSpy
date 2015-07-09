@@ -42,7 +42,7 @@ gcc -Wall -O4 -o tones-to-rf tones-to-rf.c -std=gnu99 -lm
 
 ##Usage
 
-First, set up your RF output anf HF receiver. It is suggested that you use a DC blocking capacitor on pin 7 of the expansion connector, and feed it into a dummy load for testing. This software was written to demonstrate the RF breakout board at [https://www.kickstarter.com/projects/2001938575/rf-breakout-kit-for-the-raspberry-pi](https://www.kickstarter.com/projects/2001938575/rf-breakout-kit-for-the-raspberry-pi), with that board an old 50 ohm BNC Ethernet terminator was used. The HF receiver was loosely coupled with a short piece of insulated wire from its antenna terminal looped round the Ethernet terminator. SSTV was demodulated using an Android SSTV app on a tablet next to the speaker. The SSTV mode is set as Martin2 in beacon.py.
+First, set up your RF output and HF receiver. It is suggested that you use a DC blocking capacitor on pin 7 of the expansion connector, and feed it into a dummy load for testing. This software was written to demonstrate the RF breakout board at [https://www.kickstarter.com/projects/2001938575/rf-breakout-kit-for-the-raspberry-pi](https://www.kickstarter.com/projects/2001938575/rf-breakout-kit-for-the-raspberry-pi), with that board an old 50 ohm BNC Ethernet terminator was used. The HF receiver was loosely coupled with a short piece of insulated wire from its antenna terminal looped round the Ethernet terminator. SSTV was demodulated using an Android SSTV app on a tablet next to the speaker. The SSTV mode is set as Martin2 in beacon.py.
 
 Save the JPEG image you wish to transmit as test.jpg. You could add Python code to put your callsign in as the original beacon.py did, however I used the GIMP.
 Run beacon.py as follows, piping output to a file.

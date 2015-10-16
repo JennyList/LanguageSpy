@@ -27,21 +27,19 @@ this program has secret beyond bit level encrypted bits that make it traceable a
                        /* set TABs to 4 for correct formatting of this file, or if you do not know what that is replace all TABs with 4 spaces, else you cannot READ this */
 /*
 
-Raspberry Pi 2 support added Jenny List http://www.languagespy.com 2015-07-04
-
-You will need to uncomment the line further down that #defines BCM2708_PERI_BASE for your Pi version.
+Raspberry Pi 2 support added Jenny List http://www.languagespy.com 2015-07-04 and 2015-10-16
 
 */
 /*
 Program name:
-fre_pi
+freq_pi
 
 Function:
 programmable frequency generator on GPIO_4 pin 7
 
 
 To compile:
-gcc -Wall -O4 -o freq_pi freq_pi-0.7.c -std=gnu99 -lm
+gcc -Wall -O4 -o freq_pi freq_pi.c -std=gnu99 -lm
 
 
 To install:
@@ -51,7 +49,7 @@ To run:
 freq_pi
 */
 
-#define PROGRAM_VERSION "0.71"
+#define PROGRAM_VERSION "0.72"
 
 
 /*
@@ -82,9 +80,11 @@ Added ppm frequency correction -y command line flag.
 0.71
 Minor modification to add Raspberry Pi 2 base address support
 
+0.72
+Brought in code to automatically select Pi or Pi 2
+From minimal_clk.c courtesy of http://abyz.co.uk/rpi/pigpio/index.html which is Public Domain
+
 */
-
-
 
 #include <stdio.h>
 #include <string.h>
@@ -122,13 +122,11 @@ double pllo_frequency;
 //#define PLL0_FREQUENCY 250000000.0
 #define PLL0_FREQUENCY 500000000.0
 
-//Uncomment the relevant base address definition for your platform
-//Base address definition for Pi 1
-//#define BCM2708_PERI_BASE        0x20000000 
-//Base address definition for Pi 2
-#define BCM2708_PERI_BASE        0x3F000000
-
-#define GPIO_BASE                (BCM2708_PERI_BASE + 0x200000) /* GPIO controller */
+//Variables used by auto Pi model detection
+static volatile uint32_t piModel = 1;
+static volatile uint32_t piPeriphBase = 0x20000000;
+static volatile uint32_t piBusAddr = 0x40000000;
+static volatile uint32_t piGpioBase;
 
 // I/O access
 volatile unsigned *gpio;
@@ -164,6 +162,64 @@ volatile unsigned *allof7e;
 #define START_IN	8
 #define TRIGGER_OUT	17
 
+//Code to automatically sense the Pi version
+//Thanks to http://abyz.co.uk/rpi/pigpio/examples.html#Misc_code
+unsigned gpioHardwareRevision(void)
+{
+   static unsigned rev = 0;
+
+   FILE * filp;
+   char buf[512];
+   char term;
+   int chars=4; /* number of chars in revision string */
+
+   if (rev) return rev;
+
+   piModel = 0;
+
+   filp = fopen ("/proc/cpuinfo", "r");
+
+   if (filp != NULL)
+   {
+      while (fgets(buf, sizeof(buf), filp) != NULL)
+      {
+         if (piModel == 0)
+         {
+            if (!strncasecmp("model name", buf, 10))
+            {
+               if (strstr (buf, "ARMv6") != NULL)
+               {
+                  piModel = 1;
+                  chars = 4;
+                  piPeriphBase = 0x20000000;
+                  piBusAddr = 0x40000000;
+               }
+               else if (strstr (buf, "ARMv7") != NULL)
+               {
+                  piModel = 2;
+                  chars = 6;
+                  piPeriphBase = 0x3F000000;
+                  piBusAddr = 0xC0000000;
+               }
+            }
+         }
+
+        piGpioBase = (piPeriphBase + 0x200000);
+
+         if (!strncasecmp("revision", buf, 8))
+         {
+            if (sscanf(buf+strlen(buf)-(chars+1),
+               "%x%c", &rev, &term) == 2)
+            {
+               if (term != '\n') rev = 0;
+            }
+         }
+      }
+
+      fclose(filp);
+   }
+   return rev;
+}
 
 struct GPCTL
 {
@@ -199,7 +255,7 @@ gpio_map = mmap(
      PROT_READ|PROT_WRITE,// Enable reading & writting to mapped memory
      MAP_SHARED,       //Shared with other processes
      mem_fd,           //File to map
-     GPIO_BASE         //Offset to GPIO peripheral
+     piGpioBase         //Offset to GPIO peripheral
    );
 
 close(mem_fd); // No need to keep mem_fd open after mmap
@@ -275,9 +331,9 @@ if( (mem_fd = open("/dev/mem", O_RDWR|O_SYNC) ) < 0)
 //Pi 1 line in original code
 // allof7e = (unsigned *)mmap( NULL, 0x01000000,  /*len */ PROT_READ|PROT_WRITE, MAP_SHARED, mem_fd, 0x20000000  /* base */ );
 
-//Replacement line for Pi 2 version. BCM2708_PERI_BASE inserted instead of hard coded address.
+//Replacement line for Pi 2 version. piPeriphBase inserted instead of hard coded address.
 //Should work with either Pi given the right base address definition at the top of the file.
-allof7e = (unsigned *)mmap( NULL, 0x01000000,  /*len */ PROT_READ|PROT_WRITE, MAP_SHARED, mem_fd, BCM2708_PERI_BASE  /* base */ );
+allof7e = (unsigned *)mmap( NULL, 0x01000000,  /*len */ PROT_READ|PROT_WRITE, MAP_SHARED, mem_fd, piPeriphBase  /* base */ );
 
 if( (int)allof7e == -1) exit(1);
 
@@ -599,6 +655,7 @@ while(1)
 		}/* end switch a */
 	}/* end while getopt() */
 
+gpioHardwareRevision(); /* sets piModel, needed for peripherals address */
 
 setup_io();
 

@@ -3,6 +3,16 @@ This directory contains two pieces of software:
 * A copy of Jan Panteltje's freq_pi signal generator modified to detect which Raspberry Pi model it is running on.
 * PiVFO, a Python GUI for freq_pi that provides a simple variable frequency oscillator.
 
+##Quick install for both pieces of software:
+At a command line in your home directory on a stock Raspbian install:
+```
+mkdir freq_pi
+cd freq_pi
+curl -o freq_pi.c https://raw.githubusercontent.com/JennyList/LanguageSpy/master/RaspberryPi/rf/freq_pi/freq_pi.c
+curl -o PiVFO.py https://raw.githubusercontent.com/JennyList/LanguageSpy/master/RaspberryPi/rf/freq_pi/PiVFO.py
+gcc -Wall -O4 -o freq_pi freq_pi.c -std=gnu99 -lm
+```
+
 ##freq_pi
 
 ###Function:###

@@ -19,7 +19,7 @@ gcc -Wall -O4 -o freq_pi freq_pi.c -std=gnu99 -lm
 freq_pi is a programmable frequency generator that uses the Raspberry Pi GPCLK0 line, on pin 7 of the GPIO port.
 This version 0.72 now does not need any configuration to run on either BCM2385 or BCM2386 Pi boards, so will run on the Pi or the Pi 2.
 
-##To compile freq_pi:###
+###To compile freq_pi:###
 gcc -Wall -O4 -o freq_pi freq_pi.c -std=gnu99 -lm
 
 ###To run freq_pi:###

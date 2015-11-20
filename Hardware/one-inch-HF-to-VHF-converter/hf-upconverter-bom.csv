@@ -1,0 +1,16 @@
+Part,Value,Package,Description
+C1,10u,PANASONIC_B,"POLARIZED CAPACITOR, European symbol"
+C2,0.1u,C0805,"CAPACITOR, European symbol"
+C3,180p,C0805,"CAPACITOR, European symbol"
+C4,180p,C0805,"CAPACITOR, European symbol"
+C5,0.1u,C0805,"CAPACITOR, European symbol"
+L1,220nH,L1206,1206 wire-wound inductor
+IC1,74VHC4053,SO16,Triple 2-channel ANALOG MULTIPLEXER
+JP1,USBA-SMD-MALE,USB-A-SMT-MALE,USB Connectors
+OS1,50MHz,7.2X5.2-4-PAD,5v oscillator – IMPORTANT! Don't use a 3v3 part!
+R1,2k2,R0805,"RESISTOR, European symbol"
+R2,2k2,R0805,"RESISTOR, European symbol"
+SMA1,ANT,SMA-EDGE,SMA Connector
+SMA2,OUT,SMA-EDGE,SMA Connector
+T1,Bourns PT61018PEL,N5,10/100BASE-TX SOIC-16 Fast Ethernet Magnetic Module
+PCB,,,As described in hf-upconverter.brd and one-inch-HF-receive-converter-gerbers.zip

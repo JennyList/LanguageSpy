@@ -13802,6 +13802,54 @@ End launch SMA connector. The paste layer has been removed so that the connector
 </deviceset>
 </devicesets>
 </library>
+<library name="L1206">
+<packages>
+<package name="R1206">
+<description>&lt;b&gt;RESISTOR&lt;/b&gt;</description>
+<wire x1="0.9525" y1="-0.8128" x2="-0.9652" y2="-0.8128" width="0.1524" layer="51"/>
+<wire x1="0.9525" y1="0.8128" x2="-0.9652" y2="0.8128" width="0.1524" layer="51"/>
+<wire x1="-2.473" y1="0.983" x2="2.473" y2="0.983" width="0.0508" layer="39"/>
+<wire x1="2.473" y1="0.983" x2="2.473" y2="-0.983" width="0.0508" layer="39"/>
+<wire x1="2.473" y1="-0.983" x2="-2.473" y2="-0.983" width="0.0508" layer="39"/>
+<wire x1="-2.473" y1="-0.983" x2="-2.473" y2="0.983" width="0.0508" layer="39"/>
+<smd name="2" x="1.422" y="0" dx="1.6" dy="1.803" layer="1"/>
+<smd name="1" x="-1.422" y="0" dx="1.6" dy="1.803" layer="1"/>
+<text x="-1.27" y="1.27" size="1.27" layer="25">&gt;NAME</text>
+<text x="-1.27" y="-2.54" size="1.27" layer="27">&gt;VALUE</text>
+<rectangle x1="-1.6891" y1="-0.8763" x2="-0.9525" y2="0.8763" layer="51"/>
+<rectangle x1="0.9525" y1="-0.8763" x2="1.6891" y2="0.8763" layer="51"/>
+<rectangle x1="-0.3" y1="-0.7" x2="0.3" y2="0.7" layer="35"/>
+</package>
+</packages>
+<symbols>
+<symbol name="L-EU">
+<text x="-1.4986" y="-3.81" size="1.778" layer="95" rot="R90">&gt;NAME</text>
+<text x="3.302" y="-3.81" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
+<rectangle x1="-1.016" y1="-3.556" x2="1.016" y2="3.556" layer="94"/>
+<pin name="2" x="0" y="-5.08" visible="off" length="short" direction="pas" swaplevel="1" rot="R90"/>
+<pin name="1" x="0" y="5.08" visible="off" length="short" direction="pas" swaplevel="1" rot="R270"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="L-EU" prefix="L" uservalue="yes">
+<description>&lt;B&gt;INDUCTOR&lt;/B&gt;, European symbol</description>
+<gates>
+<gate name="G$1" symbol="L-EU" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="R1206">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -13820,7 +13868,7 @@ End launch SMA connector. The paste layer has been removed so that the connector
 <part name="P+1" library="supply1" deviceset="VCC" device=""/>
 <part name="SUPPLY1" library="supply2" deviceset="VEE" device=""/>
 <part name="GND4" library="supply1" deviceset="GND" device=""/>
-<part name="L1" library="rcl" deviceset="R-EU_" device="R1206" value="220nH"/>
+<part name="L1" library="L1206" deviceset="L-EU" device="" value="220nH"/>
 <part name="C3" library="rcl" deviceset="C-EU" device="C0805" value="180p"/>
 <part name="C4" library="rcl" deviceset="C-EU" device="C0805" value="180p"/>
 <part name="JP1" library="SparkFun-Connectors" deviceset="USB" device="A-SMD-MALE"/>
@@ -13852,7 +13900,7 @@ G7CKF/Language Spy</text>
 <instance part="P+1" gate="VCC" x="96.52" y="81.28"/>
 <instance part="SUPPLY1" gate="G$1" x="101.6" y="22.86"/>
 <instance part="GND4" gate="1" x="101.6" y="17.78"/>
-<instance part="L1" gate="G$1" x="83.82" y="109.22"/>
+<instance part="L1" gate="G$1" x="83.82" y="109.22" rot="R90"/>
 <instance part="C3" gate="G$1" x="73.66" y="101.6"/>
 <instance part="C4" gate="G$1" x="93.98" y="99.06" rot="R180"/>
 <instance part="JP1" gate="G$1" x="160.02" y="48.26"/>

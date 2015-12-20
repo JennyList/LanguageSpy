@@ -4,15 +4,15 @@ This is an entry for the [2015 Hackaday.io One Square Inch competition](https://
 ###Files:
 - hf-upconverter.brd, an EAGLE CAD board file.
 - hf-upconverter.sch, an EAGLE CAD schematic file.
-- one-inch-HF-receive-converter-gerbers.zip, Gerber files for manufacturing generated through EAGLE CAD using OSH Park's CAM file.
+- one-inch-HF-receive-converter-gerbers-v1.2.zip, Gerber files for manufacturing generated through EAGLE CAD using OSH Park's CAM file.
 - upconverter PCB.png, a generated image of the PCB.
 - upconverter schematic.png, the converter circuit diagram.
 - hf-upconverter-bom.csv, the bill of materials for the project.
 - LICENCE, a copy of the Solderpad Hardware Licence v0.51
 
-###TODO
-
-Instructions. Waiting for prototype build.
+###Instructions:
+It's a small board, so the instructions are shre and sweet.
+Solder all the chip components first, then the mixer IC, then the transformer, the electrolytic, the oscillator, and finally the connectors. You'll get lots of flux all over everything, but a quick brush with a bit of solvent cleaner should deal with that.
 
 ###Licence and boilerplate
 

@@ -11,7 +11,7 @@ This is an entry for the [2015 Hackaday.io One Square Inch competition](https://
 - LICENCE, a copy of the Solderpad Hardware Licence v0.51
 
 ###Instructions:
-It's a small board, so the instructions are shre and sweet.
+It's a small board, so the instructions are short and sweet.
 Solder all the chip components first, then the mixer IC, then the transformer, the electrolytic, the oscillator, and finally the connectors. You'll get lots of flux all over everything, but a quick brush with a bit of solvent cleaner should deal with that.
 
 ###Licence and boilerplate
